@@ -25,6 +25,6 @@ jobs:
           dotnet-version: 9.0.x
       
       - name: Build and Run Generator
-        run: dotnet run --project Generator/Generator.csproj -c Release -- Gaoshu705 MelonLoader.UnityDependencies.China main 2022.3.20f1c1 82a5dab7aa2a
+        run: dotnet run --project Generator/Generator.csproj -c Release -- Gaoshu705 MelonLoader.UnityDependencies.China main 2022.3.62f1c1 b0109b07edb8
         env: 
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
