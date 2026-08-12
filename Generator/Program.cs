@@ -45,8 +45,20 @@ internal static class Program
         
         http.DefaultRequestHeaders.Add("User-Agent", "Unity web player");
 
-        Console.WriteLine("Fetching available releases");
-        var versions = await GetAvailableVersionsAsync();
+        IEnumerable<UnityVersion> versions;
+        if (args.Length >= 5)
+        {
+            if (!UnityVersion.TryParse(args[3], args[4], out UnityVersion requestedVersion))
+                throw new ArgumentException($"Invalid requested Unity version: {args[3]}");
+
+            Console.WriteLine($"Processing requested release {requestedVersion}");
+            versions = [requestedVersion];
+        }
+        else
+        {
+            Console.WriteLine("Fetching available releases");
+            versions = await GetAvailableVersionsAsync();
+        }
 
         Console.WriteLine("Fetching existing releases");
         var releases = await github.Repository.Release.GetAll(repoOwner, repoName);
